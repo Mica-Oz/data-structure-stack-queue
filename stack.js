@@ -20,40 +20,41 @@ class Stack {
   constructor() {
     this.first = null;
     this.last = null;
-    this.size = 0;
+    this.length = 0;
+  }
+
+  push(val) {
+    let newNode = new Node(val);
+
+    //no head - set head and tail to this val
+    if (!this.first) {
+      this.first = newNode;
+      this.last = newNode;
+    } else {
+      let temp = this.first;
+      this.first = newNode;
+      this.first.next = temp;
+    }
+    this.length++;
+    return this.length;
   }
 
   pop() {
-    if (!this.head) {
+    if (!this.first) {
       return undefined;
     }
     //delete head
     //item2==head
     //sever connection
     //return oldHead
-    let oldHead = this.head;
-    this.head = oldHead.next;
-    oldHead.next = null;
-    this.length--;
-    if (this.length === 0) {
-      this.tail === null;
-    }
-    return oldHead;
-  }
+    let temp = this.first;
 
-  push(val) {
-    let newNode = new Node(val);
-    let oldHead = this.head;
-    //no head - set head and tail to this val
-    if (this.head === null && this.tail === null) {
-      this.head = newNode;
-      this.tail = newNode;
-    } else {
-      this.head = newNode;
-      this.head.next = oldHead;
+    if (this.first === this.last) {
+      this.last = null;
     }
-    this.length++;
-    return this;
+    this.first = this.first.next;
+    this.length--;
+    return temp.val;
   }
 }
 
@@ -65,3 +66,6 @@ class Node {
 }
 
 let listStack = new Stack();
+listStack.push("beep");
+listStack.push("bop");
+listStack.push("boop");
